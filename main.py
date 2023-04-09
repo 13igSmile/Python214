@@ -2329,4 +2329,6 @@
 # hello_world("world!")
 # hello_world2("Hi!")
 
-print('hello')
+# print('hello')
+
+print('Вносим изменения в склонированный проект')
