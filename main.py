@@ -2329,4 +2329,7 @@
 # hello_world("world!")
 # hello_world2("Hi!")
 
-print('hello')
+# print('hello')
+
+a = 5
+print(a)
