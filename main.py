@@ -2762,3 +2762,310 @@
 # s = "yandex.com and yandex.ru"  # http://yandex.com and http://yandex.ru
 # reg = r"(([a-z0-9-]{2,}\.)+[a-z]{2,4})"
 # print(re.sub(reg, r'http://\1', s))
+
+# Рекурсия
+
+# def elevator(n):
+#     if n == 0:
+#         print("Вы в подвале")
+#         return
+#     print("=>", n)
+#     elevator(n - 1)
+#     print(n, end=" ")
+#
+#
+# n1 = int(input("На каком Вы этаже: "))
+# elevator(n1)
+
+# def sum_list(lst):
+#     res = 0
+#     for i in lst:
+#         res += i
+#     return res
+#
+#
+# print(sum_list([1, 3, 5, 7, 9]))  # 25
+
+# def sum_list(lst):
+#     if len(lst) == 1:
+#         return lst[0]
+#     else:
+#         return lst[0] + sum_list(lst[1:])
+#
+#
+# print(sum_list([1, 3, 5, 7, 9]))  # 25
+
+# def to_str(n, base):
+#     convert = "0123456789ABCDEF"
+#     if n < base:
+#         return convert[n]
+#     else:
+#         return to_str(n // base, base) + convert[n % base]
+#
+#
+# print(to_str(254, 16))
+
+# names = ["Adam", ["Bob", ["Chet", "Cat"], "Bard", "Bert"], "Alex", ["Bea", "Bill"], "Ann"]
+# print(names[0])
+# print(isinstance(names[0], list))
+# print(names[1][1])
+# print(isinstance(names[1][1], list))
+# print(names[1][1][0])
+# print(isinstance(names[1][1][0], list))
+# print(names)
+
+
+# def count_items(item_list):
+#     count = 0
+#     for item in item_list:
+#         if isinstance(item, list):
+#             count += count_items(item)
+#         else:
+#             count += 1
+#     return count
+#
+#
+# print(count_items(names))
+
+# count1 = 0
+# for i in names:
+#     if isinstance(i, list):
+#         for j in i:
+#             if isinstance(j, list):
+#                 for k in j:
+#                     count1 += 1
+#             else:
+#                 count1 += 1
+#     else:
+#         count1 += 1
+# print(count1)
+
+
+# def union(s):
+#     if not s:
+#         return s
+#     if isinstance(s[0], list):
+#         return union(s[0] + union(s[1:]))
+#     return s[:1] + union(s[1:])
+#
+#
+# print(union(names))
+
+# def remove(text):
+#     if not text:
+#         return ""
+#     if text[0] == "\t" or text[0] == " ":
+#         return remove(text[1:])
+#     else:
+#         return text[0] + remove(text[1:])
+#
+#
+# print(remove(" Hello\tWorld! "))
+
+# Линейный (последовательный) поиск
+# from random import randint
+#
+# import time
+
+#
+#
+# def seq_search(s, item):
+#     found = False
+#     pos = 0
+#     stop = False
+#     while pos < len(s) and not found and not stop:
+#         if s[pos] == item:
+#             found = True
+#         else:
+#             if s[pos] > item:
+#                 stop = True
+#             else:
+#                 pos += 1
+#     return found
+#
+#
+# lst = [1, 2, 32, 8, 17, 19, 42, 13, 0]
+# lst = [randint(1, 99) for i in range(100000)]
+# start = time.monotonic()
+# lst.sort()
+# print(lst)
+# print(seq_search(lst, 32))
+# print(seq_search(lst, 0))
+# res = time.monotonic() - start
+# print(res, 'sec')
+
+# Бинарный поиск
+
+# def binary_search(s, item):
+#     first = 0
+#     last = len(s) - 1
+#     found = False
+#
+#     while first <= last and not found:
+#         midpoint = (first + last) // 2
+#         if s[midpoint] == item:
+#             found = True
+#         else:
+#             if item < s[midpoint]:
+#                 last = midpoint - 1
+#             else:
+#                 first = midpoint + 1
+#
+#     return found
+#
+#
+# lst = [0, 1, 2, 8, 13, 17, 19, 32, 42]
+# print(binary_search(lst, 17))
+# print(binary_search(lst, 3))
+
+# Пузырьковая сортировка
+
+# def bubble(array):
+#     for i in range(len(array) - 1):
+#         for j in range(len(array) - i - 1):
+#             if array[j] > array[j + 1]:
+#                 array[j], array[j + 1] = array[j + 1], array[j]
+#         #     print(*array)
+#         # print('=' * 50)
+#
+#
+# lst = [randint(1, 99) for i in range(10000)]
+# start = time.monotonic()
+# # print(lst)
+# bubble(lst)
+# # print(lst)
+# res = time.monotonic() - start
+# print(round(res, 3), 'sec')
+
+# Сортировка слияния
+
+# def merge_sort(a):
+#     n = len(a)
+#     if n < 2:
+#         return a
+#
+#     left = merge_sort(a[:n // 2])
+#     right = merge_sort(a[n // 2: n])
+#
+#     i = j = 0
+#     res = []
+#
+#     while i < len(left) or j < len(right):
+#         if not i < len(left):
+#             res.append(right[j])
+#             j += 1
+#         elif not j < len(right):
+#             res.append(left[i])
+#             i += 1
+#         elif left[i] < right[j]:
+#             res.append(left[i])
+#             i += 1
+#         else:
+#             res.append(right[j])
+#             j += 1
+#     return res
+#
+#
+# array = [randint(1, 99) for i in range(10000)]
+# start = time.monotonic()
+# # array = [8, 2, 6, 4, 5]
+# # print(array)
+# array = merge_sort(array)
+# # print(array)
+# res = time.monotonic() - start
+# print(round(res, 3), 'sec')
+
+# Сортировка Шелла
+
+# def shell_sort(s):
+#     gap = len(a)
+#
+#     while gap > 0:
+#         for val in range(gap, len(s)):
+#             cur_val = s[val]
+#             pos = val
+#
+#             while pos >= gap and s[pos - gap] > cur_val:
+#                 s[pos] = s[pos - gap]
+#                 pos -= gap
+#                 s[pos] = cur_val
+#
+#         gap //= 2
+#     return s
+#
+#
+# a = [randint(1, 99) for i in range(10000)]
+# start = time.monotonic()
+# # a = [10, 21, 9, 14, 67, 44, 26, 87]
+# # print(a)
+# shell_sort(a)
+# # print(a)
+# res = time.monotonic() - start
+# print(round(res, 3), 'sec')
+
+# Быстрая сортировка
+
+# def quick_sort(a):
+#     if len(a) > 1:
+#         x = a[(len(a) - 1) // 2]
+#
+#         low = [i for i in a if i < x]
+#         eq = [i for i in a if i == x]
+#         hi = [i for i in a if i > x]
+#         a = quick_sort(low) + eq + quick_sort(hi)
+#
+#     return a
+#
+#
+# lst = [randint(1, 99) for i in range(10000)]
+# start = time.monotonic()
+# # lst = [9, 5, -3, 4, 7, 8, -8]
+# # print(lst)
+# # lst = quick_sort(lst)
+# # print(lst)
+# lst.sort()
+# res = time.monotonic() - start
+# print(round(res, 3), 'sec')
+
+# Файлы
+
+# f = open('text.txt')  # mode='r'
+# print(*f)
+# print(f)
+# f.close()
+# print(f.closed)
+
+# f = open('text.txt')
+# print(f.read(3))
+# print(f.read())
+# f.close()
+
+# f = open('test.txt')
+# # print(f.readline())
+# # print(f.readline(8))
+# # print(f.readline())
+# # print(f.readline())
+# print(f.readlines(26))
+# print(f.readlines())
+# f.close()
+
+# i = 0
+# f = open('test.txt')
+# for line in f:
+#     # print(line)
+#     i += 1
+# f.close()
+# print(i)
+#
+# f = open('test.txt')
+# print(len(f.readlines()))
+# f.close()
+
+# f = open('test1.txt', 'w')
+# f.write('Hello\nWorld!')
+# f.close()
+
+# f = open('test1.txt', 'a')
+# f.write('New text')
+# f.close()
+
